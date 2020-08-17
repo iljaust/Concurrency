@@ -1,15 +1,38 @@
 package com.company.FirstTask;
 
-import java.util.concurrent.Semaphore;
-
 public class Main {
+    public static void main(String[] args) throws InterruptedException {
 
-    public static void main(String[] args) {
+        Foo foo = new Foo();
 
-        Semaphore sem = new Semaphore(1);
+        Thread t1 = new Thread(() -> {
+            try{
 
-        new thread(sem);
-        new threadB(sem);
-        new threadC(sem);
+                foo.first();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread t2 = new Thread(() -> {
+            try{
+                foo.second();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread t3 = new Thread(() -> {
+            try{
+                foo.third();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        t1.start();
+        t2.start();
+        t3.start();
+
     }
 }
+
